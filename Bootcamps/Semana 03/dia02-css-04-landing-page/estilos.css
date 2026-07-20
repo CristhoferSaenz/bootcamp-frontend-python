@@ -1,0 +1,10 @@
+
+/*font-family: "Raleway", sans-serif;
+font-family: "Open Sans", sans-serif;*/
+
+body{
+    background-color: hsl(218, 28%, 13%);
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    color: hsl(0, 0%, 100%);
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS - Modelo de Caja</title>
+    <style>
+
+        .caja{
+            background-color: rgb(76, 76, 210);
+            color: white;
+            width: 200px;
+            height: 50px;
+
+            border: 5px solid rgb(7, 33, 95);
+
+            padding: 10px;
+            margin: 10px;
+
+            padding: 20px 10px 20px 10px;
+            box-sizing: content-box;
+            box-sizing: border-box;
+        }
+
+        .bloque{
+            background-color: coral;
+        }
+        .enlinea{
+            background-color: aqua;
+        }
+
+        .enlinea-bloque{
+            background-color: beige;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="caja">Modelo de caja</div>
+
+    <div class="bloque">BLOQUE</div>
+    <div class="enlinea">ENLINEA1</div>
+    <div class="enlinea">ENLINEA2</div>
+    <div class="en linea-bloque">ENLINEA Y</div>
+
+</body>
+</html>
