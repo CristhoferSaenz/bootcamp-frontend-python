@@ -1,0 +1,19 @@
+body {
+    background-color: powderblue;
+}
+p{
+    color: blue;
+}
+h5{
+    background-color: blueviolet;
+    font-size: 50px;
+}
+#estado{
+    background-color: yellow;
+}
+.btn{
+    background-color: red;
+}
+.texto-resaltado {
+    
+}

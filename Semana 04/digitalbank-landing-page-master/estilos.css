@@ -1,0 +1,267 @@
+
+:root {
+    --color-primario: #31d35c;
+    --color-secundario: #2bb7da;
+    --color-fondo: #fafafa;
+    --color-texto-oscuro: #2d314d;
+    --color-texto-claro: #9698a6;
+    --color-blanco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Public Sans", sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-claro);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: var(--color-texto-oscuro);
+    font-weight: 300;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.boton-principal {
+    background: linear-gradient(to right, var(--color-primario), var(--color-secundario));
+    color: var(--color-blanco);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.boton-principal:hover {
+    opacity: 0.8;
+}
+
+
+.encabezado {
+    background-color: var(--color-blanco);
+    padding: 15px 0;
+    position: relative;
+    z-index: 100; 
+}
+
+.encabezado-contenido {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo img {
+    display: block; 
+}
+
+
+.menu-navegacion a {
+    text-decoration: none;
+    color: var(--color-texto-claro);
+    margin: 0 15px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.menu-navegacion a:hover {
+    color: var(--color-texto-oscuro);
+}
+
+
+.seccion-hero {
+    background-color: var(--color-fondo);
+    padding: 50px 0;
+    overflow: hidden; /* Oculta partes de las imágenes que salen de la pantalla */
+}
+
+.hero-contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-texto {
+    width: 40%;
+}
+
+.hero-texto h1 {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.hero-texto p {
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.hero-imagenes {
+    width: 50%;
+    position: relative;
+    height: 600px;
+}
+
+/* Posicionamiento de las imágenes del archivo zip */
+.imagen-fondo {
+    position: absolute;
+    top: -150px;
+    right: -250px;
+    width: 150%;
+    z-index: 1;
+}
+
+.imagen-telefonos {
+    position: absolute;
+    top: -50px;
+    right: -100px;
+    width: 110%;
+    z-index: 2;
+}
+
+
+.seccion-caracteristicas {
+    background-color: #f3f4f6; /* Gris muy claro */
+    padding: 80px 0;
+}
+
+.caracteristicas-titulo {
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+.caracteristicas-titulo h2 {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+
+.cuadricula-tarjetas {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre tarjetas */
+}
+
+.tarjeta-caracteristica {
+    width: 23%;
+}
+
+.tarjeta-caracteristica img {
+    margin-bottom: 25px;
+}
+
+.tarjeta-caracteristica h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+
+.seccion-articulos {
+    padding: 80px 0;
+    background-color: var(--color-fondo);
+}
+
+.seccion-articulos h2 {
+    font-size: 35px;
+    margin-bottom: 40px;
+}
+
+.tarjeta-articulo {
+    width: 23%;
+    background-color: var(--color-blanco);
+    border-radius: 8px;
+    overflow: hidden; /* Evita que la imagen se salga de las esquinas redondas */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+.tarjeta-articulo img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
+}
+
+.articulo-contenido {
+    padding: 25px;
+}
+
+.autor {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.articulo-contenido h3 {
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.articulo-contenido h3:hover {
+    color: var(--color-primario);
+}
+
+.articulo-contenido p {
+    font-size: 13px;
+}
+
+
+.pie-pagina {
+    background-color: var(--color-texto-oscuro);
+    padding: 40px 0;
+    color: var(--color-blanco);
+}
+
+.pie-contenido {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pie-iconos {
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+    height: 100px; 
+}
+.redes-sociales img {
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.pie-enlaces {
+    display: flex;
+    flex-direction: column;
+}
+
+.pie-enlaces a {
+    color: var(--color-blanco);
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.pie-enlaces a:hover {
+    color: var(--color-primario);
+}
+
+.pie-accion {
+    text-align: right;
+}
+
+.pie-accion button {
+    margin-bottom: 25px;
+}
+
+.pie-accion p {
+    font-size: 14px;
+    color: var(--color-texto-claro);
+}
