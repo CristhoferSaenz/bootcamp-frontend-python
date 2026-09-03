@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon Ball CRUD</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+  .font-mono { font-family: monospace; }
+</style>
+</head>
+<body class="bg-slate-50/50 text-slate-800 min-h-screen font-sans">
+
+  <main class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- Encabezado -->
+    <header class="mb-8 flex items-start justify-between gap-6">
+      <div>
+        <p class="font-mono text-xs text-slate-400 tracking-widest uppercase mb-1">MARATÓN G31 - 2026</p>
+        <h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Dragon Ball CRUD</h1>
+        <p class="text-sm text-slate-500 mt-1 flex items-center gap-1">Gestiona tus personajes de Dragon Ball 🟠</p>
+      </div>
+      <div class="text-right shrink-0">
+        <p id="contador" class="text-4xl font-black leading-none text-slate-900">0</p>
+        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-1">PERSONAJES</p>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+      
+      <!-- Columna Izquierda: Formulario y JSON -->
+      <div class="md:col-span-4 flex flex-col gap-6">
+        
+        <!-- Formulario -->
+        <form id="form" class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm" novalidate>
+          <input type="hidden" id="personajeId">
+
+          <p id="formTitle" class="font-mono text-xs font-bold uppercase tracking-wider text-orange-600 mb-6 flex items-center gap-2">
+            <span>👤</span> NUEVO PERSONAJE
+          </p>
+
+          <div class="flex flex-col gap-4 mb-6">
+            <label class="block text-xs font-semibold text-slate-700">
+              Nombre
+              <input
+                id="nombre" type="text" placeholder="Ej: Goku" required
+                class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm mt-1 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all bg-slate-50/30"
+              >
+            </label>
+
+            <label class="block text-xs font-semibold text-slate-700">
+              Imagen (URL)
+              <input
+                id="imagen" type="url" placeholder="https://dragonball-api.com/..." required
+                class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm mt-1 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all bg-slate-50/30"
+              >
+            </label>
+
+            <label class="block text-xs font-semibold text-slate-700">
+              Raza
+              <input
+                id="raza" type="text" placeholder="Ej: Saiyan" required
+                class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm mt-1 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all bg-slate-50/30"
+              >
+            </label>
+
+            <label class="block text-xs font-semibold text-slate-700">
+              Género
+              <select
+                id="genero" required
+                class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm mt-1 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all bg-slate-50/30 text-slate-600"
+              >
+                <option value="">Elegir</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Unknown">Unknown</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="flex flex-col items-center gap-2">
+            <button
+              type="submit" id="submitBtn"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors shadow-sm shadow-orange-200"
+            >
+              + Agregar Personaje
+            </button>
+            <button
+              type="button" id="cancelBtn"
+              class="w-full text-xs text-slate-400 hover:text-slate-700 py-1 transition-colors hidden"
+            >
+              Cancelar edición
+            </button>
+          </div>
+        </form>
+
+        <!-- Tarjeta Informativa JSON -->
+        <div class="bg-slate-50/60 border border-slate-200/80 rounded-2xl p-5">
+          <p class="font-mono text-xs font-semibold text-orange-600 mb-3 flex items-center gap-1.5">
+            <span>💡</span> Estructura del JSON
+          </p>
+          <pre class="bg-white border border-slate-200/60 rounded-xl p-3 text-[11px] font-mono text-slate-600 overflow-x-auto"><code>{
+  "name": "Goku",
+  "image": "https://...jpg",
+  "race": "Saiyan",
+  "gender": "Male"
+}</code></pre>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha: Lista de Personajes y Paginación -->
+      <div class="md:col-span-8 flex flex-col">
+        
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-blue-600">LISTA DE PERSONAJES</h2>
+        </div>
+
+        <!-- Contenedor de Lista -->
+        <ul id="lista" class="space-y-3 mb-6">
+          <!-- Tarjetas cargadas dinámicamente -->
+        </ul>
+
+        <!-- Estado Vacío -->
+        <div id="vacio" class="hidden text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
+          <p class="text-base font-semibold text-slate-400 mb-1">Sin personajes aún</p>
+          <p class="text-xs text-slate-400">La lista está vacía. Registra al primero desde el formulario.</p>
+        </div>
+
+        <!-- Loader -->
+        <p id="loading" class="hidden font-mono text-xs text-slate-400 uppercase tracking-widest py-10 text-center">
+          Cargando personajes...
+        </p>
+
+        <!-- Paginación (Visual y funcional) -->
+        <div id="paginacion" class="mt-auto pt-4 flex items-center justify-center gap-1.5 text-xs text-slate-600 font-medium">
+          <button class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">│&lt; Primera</button>
+          <button class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">&lt; Anterior</button>
+          <button class="w-8 h-8 rounded-lg bg-orange-500 text-white font-bold flex items-center justify-center">1</button>
+          <button class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center">2</button>
+          <button class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center">3</button>
+          <span class="px-1 text-slate-400">...</span>
+          <button class="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center">5</button>
+          <button class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">Siguiente &gt;</button>
+          <button class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">Última &gt;│</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p class="text-center text-xs text-slate-400 py-8">
+      Bootcamp Frontend Python - Cristhofer Saenz
+    </p>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
