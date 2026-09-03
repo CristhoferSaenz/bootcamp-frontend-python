@@ -1,0 +1,30 @@
+### Lista de corredores
+
+get https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores
+#### Crear un corredor
+post https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores
+Content-Type: application/json
+
+{
+  "nombre": "Alexis",
+  "edad": 25,
+  "categoria": "10K",
+  "dorsal": 104
+}
+
+### Obtener un corredor por ID
+get https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores/481b68c6-40b9-420f-979e-081080769119
+
+### Borrar un corredor por ID
+delete https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores/97b6da46-df07-4cee-be81-d3439e14f668
+
+#### Actualizar un corredor por ID
+put https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores/481b68c6-40b9-420f-979e-081080769119
+Content-Type: application/json  
+
+{
+  "nombre": "Alexis",
+  "edad": 25,
+  "categoria": "10K",
+  "dorsal": 104
+}
