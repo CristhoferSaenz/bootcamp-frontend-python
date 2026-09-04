@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,4 +57,64 @@
 
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript + DOM: key event detect</title>
+    <style>
+        #tecla{
+           color: red;
+           font-size: 32px;
+        }
+        #caracter{
+            color: blue;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Javascript + DOM: key event detect</h1>
+
+    <main>
+     <h2>Js key detect</h2>   
+     <h3 id = 'tecla'>0</h3>
+     <h4 id="caracter">A</h4>
+    </main>
+
+    <script>
+        const tecla = document.getElementById('tecla')
+        const caracter = document.getElementById('caracter')
+
+        document.addEventListener('keydown', function(event) {
+            console.log('presionaste una tecla')
+
+            console.log({event})
+            console.log(event.key) // letra de la tecla presionada
+            console.log(event.keycode) // codigo de la tecla presionada
+
+            tecla.textContent = event.keyCode // escribimos sobre un contenido en el elemento
+            caracter.textContent = event.key // escribimos sobre un contenido en el elemento
+        })
+    
+
+
+       
+       /**console.log({tecla})// textContent
+        console .log(tecla.textContent)// leemos el contenido del elemento
+
+       
+        console.log({caracter}) 
+        console.log(caracter.textContent)
+
+
+        tecla.textContent = '999' // escribimos sobre un contenido en el elemento
+        caracter.textContent = 'Z' // escribimos sobre un contenido en el elemento    **/
+
+    </script>
+</body>
+>>>>>>> b83d5ae142e437e4c8d48fb17009b49bc6d74323
 </html>
