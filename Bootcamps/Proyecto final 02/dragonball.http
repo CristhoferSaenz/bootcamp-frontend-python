@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### 1. Obtener personajes desde la API Oficial de Dragon Ball (Solo Lectura)
 get https://dragonball-api.com/api/characters
 
@@ -27,4 +28,35 @@ Content-Type: application/json
 }
 
 ### Borrar un personaje por ID
+=======
+### 1. Obtener personajes desde la API Oficial de Dragon Ball (Solo Lectura)
+get https://dragonball-api.com/api/characters
+
+### 2. CRUD usando APIBox (Tu base de datos interactiva)
+
+### Listar todos los personajes
+get https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores
+
+#### Crear un personaje
+post https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores
+Content-Type: application/json
+
+{
+  "name": "Goku",
+  "race": "Saiyan",
+  "image": "https://dragonball-api.com/characters/goku_normal.webp"
+}
+
+#### Actualizar un personaje por ID
+put https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores/AQUI_TU_ID
+Content-Type: application/json
+
+{
+  "name": "Goku Super Saiyan",
+  "race": "Saiyan",
+  "image": "https://dragonball-api.com/characters/goku_normal.webp"
+}
+
+### Borrar un personaje por ID
+>>>>>>> b83d5ae142e437e4c8d48fb17009b49bc6d74323
 delete https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/corredores/AQUI_TU_ID
