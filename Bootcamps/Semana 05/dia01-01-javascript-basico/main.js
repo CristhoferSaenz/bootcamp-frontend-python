@@ -123,4 +123,79 @@ console.log("hola " + nombre1 + " " + apellido1); // hola Juan Pérez
 console.log(`hola ${nombre1} ${apellido1}`); // hola Juan Pérez 
 
 // 8. CONDICIONALES (if, else if, else)
-    
+
+let numero = 4;
+
+if (numero % 2 ===0) {  // si el número es par
+    console.log("El número es par");
+}   
+
+let nota = 18;
+if (nota >= 13) {
+    console.log("Aprobado con nota excelente");
+}   else {
+    console.log("No aprobado");
+}
+
+let heroe = "Batman";
+if (heroe === "Batman") {
+    console.log("Soy Batman");
+} else if (heroe === "Superman") {
+    console.log("Soy Superman");
+} else if (heroe === "Mujer Maravilla") {
+    console.log("Soy Mujer Maravilla");
+} else{
+    console.log('no soy un superhéroe') 
+} 
+
+// Todo: investigar la estrucrura switch 
+
+// 9 . ESTRUCTURAS DE REPETICIÓN (for, while, do while)
+
+// for (inicialización; condición; incremento) { // bloque de código a ejecutar }
+// impirmie los números del 0 al 9
+
+for (let i = 0; i < 10; i++) {
+    console.log(i);
+}
+
+//while (condición) { // bloque de código a ejecutar }
+// imprime los números del 0 al 9
+let j = 0;
+while (j < 10) {
+    console.log('while',j);
+    j++;
+}
+
+//dado un numero, mostar par y mayores a 10, par y menor a 10, impar 
+
+let ejer = 10;
+
+if (ejer % 2 === 0) {
+    if (ejer > 10) {
+        console.log("El número es par y mayor a 10");
+    }
+else {
+        console.log("El número es par y menor a 10");
+    }
+} else {
+    console.log("El número es impar");
+}       
+
+// dado un numero entero, escriba un programa que:
+// muestre "fizzbuzz" si el número es divisible entre 3 y 5
+// muestre "fizz" si el número es divisible entre 3
+// muestre "buzz" si el número es divisible entre 5
+// muestre el número si no es divisible entre 3 o 5         
+
+let numero1 = parseInt(prompt("Ingrese un número entero:"));
+
+if (numero1 % 3 === 0 && numero1 % 5 === 0) {
+    console.log("FizzBuzz");
+} else if (numero % 3 === 0) {
+    console.log("Fizz");
+} else if (numero % 5 === 0) {
+    console.log("Buzz");
+} else {
+    console.log(numero);
+}
