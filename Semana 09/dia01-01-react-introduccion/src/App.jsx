@@ -110,31 +110,53 @@ export default app */
 
 //07 usando expresiones con JSX 
 
-import nombreexportado, {frutas, curso} from './modulo.js'
+//import nombreexportado, {frutas, curso} from './modulo.js'
 
-const app = () => {
+//const app = () => {
   //logica del componente
 
-  const suma = 2 + 2
-  const nombre = "Alexis"
-  const edad = 25
+ // const suma = 2 + 2
+ // const nombre = "Alexis"
+ // const edad = 25
 
   // comentario: JSX permite usar expresiones de JavaScript dentro de llaves {}
 
+//  return (
+//    <section>
+//      <h1>Expresiones con JSX</h1>
+//      <p>Bienvenidos a mi primer componente</p>
+//      <p>La suma es: {suma}</p>
+//      <p>El nombre es: {nombre}</p>
+//      <p>La edad es: {edad}</p>      
+//      {/* Este es un comentario en JSX */}
+
+//      <p>{frutas}</p>
+//      <p>{JSON.stringify(curso)}</p>
+//      <p>{curso.nombre}</p> 
+
+//</section>  
+//  )
+//} 
+//export default app
+ 
+
+// 09 propiedades de un componente 
+
+const ComponenteSaludo = (props) => {
   return (
-    <section>
-      <h1>Expresiones con JSX</h1>
-      <p>Bienvenidos a mi primer componente</p>
-      <p>La suma es: {suma}</p>
-      <p>El nombre es: {nombre}</p>
-      <p>La edad es: {edad}</p>      
-      {/* Este es un comentario en JSX */}
-
-      <p>{frutas}</p>
-      <p>{JSON.stringify(curso)}</p>
-      <p>{curso.nombre}</p> 
-
-    </section>  
+      <h4>Hola {props.nombre}, tienes {props.edad} años</h4>
   )
 } 
-export default app
+
+const App = () => {
+  return (
+    <section>
+      <h4>Propiedades de un componente</h4>
+      
+      <ComponenteSaludo nombre="Alexis" edad={25} />
+      <ComponenteSaludo nombre="Juan" edad={30} />
+    </section>  
+  )
+}
+
+export default App
