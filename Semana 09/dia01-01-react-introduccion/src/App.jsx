@@ -160,18 +160,17 @@ const App = () => {
 
 //10 propiedades de un componente usando destructuring
 
-const ComponenteSaludo = (props) => {
-  const { nombre, edad } = props;
-  return <h4>Hola {nombre}, tienes {edad} años</h4>
+const ComponenteSaludo = ({ nombre, edad, colorFavorito = "rojo" }) => {
+  return <h4>Hola {nombre}, tienes {edad} años, y tu color favorito es {colorFavorito}</h4>
 } 
 
 const App = () => {
   return (
     <section>
-      <h4>Propiedades de un componente</h4>
+      <h4>Propiedades de un componente (con destructuring )</h4>
 
-      <ComponenteSaludo nombre="Alexis" edad={25} />
-      <ComponenteSaludo nombre="Juan" edad={30} />
+      <ComponenteSaludo nombre="Alexis" edad={25}/>
+      <ComponenteSaludo nombre="Juan" edad={30} colorFavorito="verde" />
     </section>  
   )
 }
