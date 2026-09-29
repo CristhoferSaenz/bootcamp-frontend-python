@@ -142,17 +142,34 @@ export default app */
 
 // 09 propiedades de un componente 
 
-const ComponenteSaludo = (props) => {
-  return (
-      <h4>Hola {props.nombre}, tienes {props.edad} años</h4>
-  )
+/* const ComponenteSaludo = (props) => {
+  return <h4>Hola {props.nombre}, tienes {props.edad} años</h4>
 } 
 
 const App = () => {
   return (
     <section>
       <h4>Propiedades de un componente</h4>
-      
+
+      <ComponenteSaludo nombre="Alexis" edad={25} />
+      <ComponenteSaludo nombre="Juan" edad={30} />
+    </section>  
+  )
+}
+ export default App*/
+
+//10 propiedades de un componente usando destructuring
+
+const ComponenteSaludo = (props) => {
+  const { nombre, edad } = props;
+  return <h4>Hola {nombre}, tienes {edad} años</h4>
+} 
+
+const App = () => {
+  return (
+    <section>
+      <h4>Propiedades de un componente</h4>
+
       <ComponenteSaludo nombre="Alexis" edad={25} />
       <ComponenteSaludo nombre="Juan" edad={30} />
     </section>  
@@ -160,3 +177,5 @@ const App = () => {
 }
 
 export default App
+
+
