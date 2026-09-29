@@ -1,6 +1,9 @@
 import './Card.css'
 
-const Card = () => {
+//Propiedad del cntenido hijo 
+
+
+const Card = ({ children }) => {
   return (
 <section className="card"
 style={{
@@ -11,8 +14,9 @@ style={{
 }}
 > 
   <h1 className="title">Hola soy un componente anidado</h1>
-  <p className="description">Este es un párrafo dentro del componente anidado.</p>
+  <p className="description">{ children || 'Contenido por defecto' }</p>
   <button className="button">Click me</button>
+
 </section>
 
   )
@@ -34,8 +38,16 @@ const App = () => {
   return (
     <section>
       <h1 className='tex-2xl text-center text-amber-700 mb-8'>React + css + tailwindcss</h1>
+
+      <Card>
+        Usamos la propiedad (children)
+      </Card>
+
       <Card />
+
+
       <CardConTailwind />
+
     </section>
   )
 }
