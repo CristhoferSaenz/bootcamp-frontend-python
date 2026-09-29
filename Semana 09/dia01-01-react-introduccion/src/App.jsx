@@ -110,8 +110,11 @@ export default app */
 
 //07 usando expresiones con JSX 
 
+import nombreexportado, {frutas, curso} from './modulo.js'
+
 const app = () => {
   //logica del componente
+
   const suma = 2 + 2
   const nombre = "Alexis"
   const edad = 25
@@ -126,6 +129,11 @@ const app = () => {
       <p>El nombre es: {nombre}</p>
       <p>La edad es: {edad}</p>      
       {/* Este es un comentario en JSX */}
+
+      <p>{frutas}</p>
+      <p>{JSON.stringify(curso)}</p>
+      <p>{curso.nombre}</p> 
+
     </section>  
   )
 } 
