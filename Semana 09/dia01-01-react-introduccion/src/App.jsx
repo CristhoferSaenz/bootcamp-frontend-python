@@ -114,12 +114,18 @@ const app = () => {
   //logica del componente
   const suma = 2 + 2
   const nombre = "Alexis"
+  const edad = 25
+
+  // comentario: JSX permite usar expresiones de JavaScript dentro de llaves {}
+
   return (
     <section>
       <h1>Expresiones con JSX</h1>
       <p>Bienvenidos a mi primer componente</p>
       <p>La suma es: {suma}</p>
       <p>El nombre es: {nombre}</p>
+      <p>La edad es: {edad}</p>      
+      {/* Este es un comentario en JSX */}
     </section>  
   )
 } 
