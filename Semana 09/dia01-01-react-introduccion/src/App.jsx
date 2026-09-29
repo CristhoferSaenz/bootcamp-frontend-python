@@ -1,122 +1,126 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+// 01 componnte base usando function
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+// que es un componente ?
+// Un componente en React es una pieza reutilizable de código que puede contener su propio estado y lógica. Puede ser una función o una clase que devuelve JSX (JavaScript XML), que es una sintaxis similar a HTML que se puede usar en JavaScript.
+
+// partes de un componente
+// 1. Importaciones: Se importan las dependencias necesarias, como React y otros módulos.
+// 2. logica del componente: Se define la función o clase que representa el componente. Aquí es donde se puede manejar el estado, los efectos secundarios y otras funcionalidades.
+//3. retorno de JSX: La función o clase devuelve JSX, que describe cómo se verá la interfaz de usuario del componente.
+//4. exportación: Se exporta el componente para que pueda ser utilizado en otras partes de la aplicación.
+
+// reglas basica de un componente
+// *un solo componente por archivo
+// *es recomendable que el nombre del archivo sea el mismo que el del componente ejemplo: si el componente se llama "MiComponente", el archivo debe llamarse "MiComponente.jsx".
+
+// 02 componente usando mutiples lineas
+
+/* function App(){
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div>
+      <h1>Hola Mundo</h1>
+      <p>Bienvenidos a mi primer componente</p>
+    </div>
+  )
+} */
 
-      <div className="ticks"></div>
+/* export default App */
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+// 03 componente usando fragment
+// Un fragmento en React es una forma de agrupar múltiples elementos sin agregar un nodo adicional al DOM. Se utiliza cuando se desea devolver varios elementos desde un componente sin envolverlos en un contenedor adicional, como un <div>.
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+/*  function App(){
+  return (
+    <div>
+      <h1>React.js</h1>
+      <p>Bienvenidos estamos aprendiendo React</p>
+    </div>
+  )
+} 
+  */
+
+//04 exrensiones vscode para usar con react.js
+// snippets de reactjs code snippets
+
+//snipert: rfc
+
+/*  function App() {
+  return (
+    <div>App</div>
   )
 }
 
 export default App
+ */
+
+//snippet: rafce
+
+/* import React from 'react'
+
+const App = () => {
+  return (
+    <div>App</div>
+  )
+}
+
+export default App
+ */
+//05 anidar componentes dentro de otros componentes
+
+/* function ComponenteApp() {
+  return <h4>Hola soy un componente anidado</h4>
+}
+
+function ComponenteApp2() {
+  return <h4>Hola soy un componente anidado 2</h4>
+} 
+
+const app = () => {
+  return (
+    <section>
+      <h1>Hola Mundo</h1>
+      <p>Bienvenidos a mi primer componente</p>
+
+      <ComponenteApp />
+      <ComponenteApp2 />  
+
+    </section>
+  )
+}
+
+export default app */
+
+//06 importar y exportar componentes externos
+
+/* import ComponenteSaludo from './components/ComponenteSaludo.jsx'
+
+const app = () => {
+  return (
+    <section>
+      <h1>componentes externos</h1>
+      <ComponenteSaludo />
+
+    </section>
+  )
+}
+
+export default app */
+
+//07 usando expresiones con JSX 
+
+const app = () => {
+  //logica del componente
+  const suma = 2 + 2
+  const nombre = "Alexis"
+  return (
+    <section>
+      <h1>Expresiones con JSX</h1>
+      <p>Bienvenidos a mi primer componente</p>
+      <p>La suma es: {suma}</p>
+      <p>El nombre es: {nombre}</p>
+    </section>  
+  )
+} 
+export default app
