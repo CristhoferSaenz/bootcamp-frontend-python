@@ -1,9 +1,7 @@
-const mostrarTexto = () => {
+const MostrarTexto = () => {
   return (
-    <div>               
-      Mostrar Texto                          
-    </div>
+    <div>MostrarTexto</div>
     )
 }
         
-export default mostrarTexto       
+export default MostrarTexto       
