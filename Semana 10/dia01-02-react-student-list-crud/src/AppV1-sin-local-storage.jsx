@@ -21,13 +21,7 @@ const App = () => {
     }
   ]
 
-  const [students, setStudents] = useState(() => {
-    const savesStudents = localStorage.getItem('STUDENTS')
-
-    return savesStudents
-      ? JSON.parse(savesStudents)
-      : DEFAULT_STUDENTS
-  })
+  const [students, setStudents] = useState(DEFAULT_STUDENTS)
   const [form, setForm] = useState({
     id: '',
     name: '',
@@ -54,8 +48,6 @@ const App = () => {
       
       setStudents(updatedStudents)
 
-      localStorage.setItem('STUDENTS', JSON.stringify(updatedStudents))
-
       setForm({
         id: '',
         name: '',
@@ -73,11 +65,7 @@ const App = () => {
       city: form.city
     }
 
-    const updatedStudents = [...students, newStudent]
-
-    setStudents(updatedStudents)
-
-    localStorage.setItem('STUDENTS', JSON.stringify(updatedStudents))
+    setStudents([...students, newStudent])
 
     setForm({
       id: '',
@@ -110,8 +98,6 @@ const App = () => {
         })
 
         setStudents(updatedStudents)
-
-        localStorage.setItem('STUDENTS', JSON.stringify(updatedStudents))
       }
     });
   }
