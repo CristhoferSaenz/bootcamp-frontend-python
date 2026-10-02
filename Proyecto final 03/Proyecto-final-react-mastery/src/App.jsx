@@ -5,7 +5,7 @@ import './App.css'
 
 const STORAGE_KEY = 'taskflow.tasks.v1'
 
-function AppShell({ tasks, loading, error, setError, onCreate, onUpdate, onDelete }) {
+function AppShell({ tasks, loading, error, setError, apiResponse, apiStatus, onCreate, onUpdate, onDelete }) {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
   const addTask = async (task) => { if (await onCreate(task)) navigate('/tareas') }
@@ -32,25 +32,36 @@ function AppShell({ tasks, loading, error, setError, onCreate, onUpdate, onDelet
       <header className="topbar"><div className="breadcrumb">Mi espacio <span>/</span> <strong>Organizador</strong></div><div className="top-actions"><label className="search-box"><span>⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar tareas..." aria-label="Buscar tareas" /><kbd>⌘ K</kbd></label><span className="today">{new Intl.DateTimeFormat('es', { weekday: 'short', day: 'numeric', month: 'short' }).format(new Date())}</span></div></header>
       {error && <div className="error-banner" role="alert">No se pudieron guardar los cambios: {error}. <button onClick={() => setError('')}>Cerrar</button></div>}
       {loading ? <div className="loading"><span className="spinner" />Cargando tus tareas…</div> : <Routes>
-        <Route path="/" element={<Dashboard tasks={tasks} stats={stats} onToggle={toggleTask} onDelete={deleteTask} />} />
+        <Route path="/" element={<Dashboard tasks={tasks} stats={stats} apiResponse={apiResponse} apiStatus={apiStatus} onToggle={toggleTask} onDelete={deleteTask} />} />
         <Route path="/tareas" element={<TaskList tasks={filteredTasks} query={query} onToggle={toggleTask} onDelete={deleteTask} />} />
         <Route path="/tareas/nueva" element={<TaskForm onSave={addTask} />} />
         <Route path="/tareas/:id/editar" element={<TaskEditor tasks={tasks} onSave={updateTask} />} />
-        <Route path="*" element={<Dashboard tasks={tasks} stats={stats} onToggle={toggleTask} onDelete={deleteTask} />} />
+        <Route path="*" element={<Dashboard tasks={tasks} stats={stats} apiResponse={apiResponse} apiStatus={apiStatus} onToggle={toggleTask} onDelete={deleteTask} />} />
       </Routes>}
     </main>
   </div>
 }
 
-function Dashboard({ tasks, stats, onToggle, onDelete }) {
+function Dashboard({ tasks, stats, apiResponse, apiStatus, onToggle, onDelete }) {
   const navigate = useNavigate()
   const recent = tasks.slice(0, 4)
   return <section className="page-content">
     <div className="welcome-row"><div><p className="eyebrow">MIÉRCOLES · UN PASO A LA VEZ</p><h1>Tu día, en orden<span>.</span></h1><p className="subtitle">Un espacio tranquilo para enfocarte en lo que importa.</p></div><button className="primary-button" onClick={() => navigate('/tareas/nueva')}><span>＋</span> Nueva tarea</button></div>
     <div className="stat-grid"><StatCard icon="▤" label="Tareas en total" value={stats.total} tone="lavender" /><StatCard icon="◷" label="Por completar" value={stats.pending} tone="peach" /><StatCard icon="✓" label="Completadas" value={stats.completed} tone="mint" /></div>
     <section className="panel task-panel"><div className="panel-heading"><div><p className="eyebrow">VISTA GENERAL</p><h2>Tareas recientes</h2></div><NavLink to="/tareas" className="text-link">Ver todas <span>→</span></NavLink></div>{recent.length ? <TaskRows tasks={recent} onToggle={onToggle} onDelete={onDelete} /> : <EmptyState onCreate={() => navigate('/tareas/nueva')} />}</section>
-    <div className="tip-card"><span className="tip-icon">✦</span><div><strong>Un pequeño consejo</strong><p>Divide las tareas grandes en pasos pequeños. Cada avance cuenta.</p></div><span className="tip-sparkle">✳</span></div>
+    <ApiResponsePanel data={apiResponse} status={apiStatus} />
     <footer className="app-footer">Hecho para ayudarte a avanzar <span>✦</span></footer>
+  </section>
+}
+
+function ApiResponsePanel({ data, status }) {
+  const statusLabels = { connected: 'Conectada', loading: 'Sincronizando', error: 'Sin conexión' }
+  return <section className="api-response-panel" aria-labelledby="api-response-title">
+    <div className="api-response-heading">
+      <div><p className="eyebrow">DATOS EN TIEMPO REAL</p><h2 id="api-response-title">Respuesta de la API <span>(APIBox)</span></h2></div>
+      <span className={`api-status api-status-${status}`}><i />{statusLabels[status]}</span>
+    </div>
+    <pre className="api-json"><code>{JSON.stringify(data, null, 2)}</code></pre>
   </section>
 }
 
@@ -68,7 +79,7 @@ function TaskList({ tasks, query, onToggle, onDelete }) {
 
 function TaskRows({ tasks, onToggle, onDelete }) {
   const navigate = useNavigate()
-  return <div className="task-list">{tasks.map((task) => <article className={`task-row ${task.completed ? 'is-complete' : ''}`} key={task.id}><button className={`check-button ${task.completed ? 'checked' : ''}`} onClick={() => onToggle(task.id)} aria-label={task.completed ? 'Marcar pendiente' : 'Marcar completada'}>{task.completed ? '✓' : ''}</button><div className="task-copy"><strong>{task.title}</strong><p>{task.description || 'Sin descripción'}</p><div className="task-meta"><span className={`priority priority-${task.priority.toLowerCase()}`}><i />{task.priority}</span>{task.dueDate && <span>▦ {new Date(`${task.dueDate}T12:00:00`).toLocaleDateString('es', { day: 'numeric', month: 'short' })}</span>}</div></div><div className="task-actions"><button title="Editar" aria-label="Editar tarea" onClick={() => navigate(`/tareas/${task.id}/editar`)}>✎</button><button title="Eliminar" aria-label="Eliminar tarea" onClick={() => onDelete(task.id)}>⌫</button></div></article>)}</div>
+  return <div className="task-list">{tasks.map((task) => <article className={`task-row ${task.completed ? 'is-complete' : ''}`} key={task.id}><button className={`check-button ${task.completed ? 'checked' : ''}`} onClick={() => onToggle(task.id)} aria-label={task.completed ? 'Marcar pendiente' : 'Marcar completada'}>{task.completed ? '✓' : ''}</button><div className="task-copy"><strong>{task.title}</strong><p>{task.description || task.module || 'Sin descripción'}</p><div className="task-meta"><span className={`priority priority-${task.priority.toLowerCase()}`}><i />{task.priority}</span>{task.dueDate && <span>▦ {new Date(`${task.dueDate}T12:00:00`).toLocaleDateString('es', { day: 'numeric', month: 'short' })}</span>}</div></div><div className="task-actions"><button title="Editar" aria-label="Editar tarea" onClick={() => navigate(`/tareas/${task.id}/editar`)}>✎</button><button title="Eliminar" aria-label="Eliminar tarea" onClick={() => onDelete(task.id)}>⌫</button></div></article>)}</div>
 }
 
 function EmptyState({ onCreate }) { return <div className="empty-state"><span className="empty-icon">✦</span><strong>Todo empieza con una idea</strong><p>Crea tu primera tarea y dale forma a tu día.</p><button className="secondary-button" onClick={onCreate}>＋ Crear tarea</button></div> }
@@ -90,15 +101,19 @@ function TaskForm({ initialTask, onSave }) {
 
 export default function App() {
   const [tasks, setTasks] = useState([])
+  const [apiResponse, setApiResponse] = useState([])
+  const [apiStatus, setApiStatus] = useState('loading')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   useEffect(() => {
     let active = true
     const loadTasks = async () => {
       try {
-        const remoteTasks = await fetchTasks()
+        const response = await fetchTasks()
         if (!active) return
-        setTasks(remoteTasks)
+        setTasks(response.tasks)
+        setApiResponse(response.raw)
+        setApiStatus('connected')
         setError('')
       } catch (loadError) {
         if (!active) return
@@ -108,6 +123,7 @@ export default function App() {
         } catch {
           setTasks([])
         }
+        setApiStatus('error')
         setError(`No se pudo cargar APIBox: ${loadError.message}`)
       } finally {
         if (active) setLoading(false)
@@ -123,21 +139,28 @@ export default function App() {
       setError('')
       return result ?? true
     } catch (mutationError) {
+      setApiStatus('error')
       setError(`APIBox: ${mutationError.message}`)
       return false
     }
   }
+  const refreshFromApi = async () => {
+    const response = await fetchTasks()
+    setTasks(response.tasks)
+    setApiResponse(response.raw)
+    setApiStatus('connected')
+  }
   const onCreate = (task) => runMutation(async () => {
-    const savedTask = await createTask(task)
-    setTasks((current) => [savedTask, ...current])
+    await createTask(task)
+    await refreshFromApi()
   })
   const onUpdate = (task) => runMutation(async () => {
-    const savedTask = await updateApiTask(task)
-    setTasks((current) => current.map((item) => item.id === task.id ? savedTask : item))
+    await updateApiTask(task)
+    await refreshFromApi()
   })
   const onDelete = (id) => runMutation(async () => {
     await deleteApiTask(id)
-    setTasks((current) => current.filter((item) => item.id !== id))
+    await refreshFromApi()
   })
-  return <BrowserRouter><AppShell tasks={tasks} loading={loading} error={error} setError={setError} onCreate={onCreate} onUpdate={onUpdate} onDelete={onDelete} /></BrowserRouter>
+  return <BrowserRouter><AppShell tasks={tasks} loading={loading} error={error} setError={setError} apiResponse={apiResponse} apiStatus={apiStatus} onCreate={onCreate} onUpdate={onUpdate} onDelete={onDelete} /></BrowserRouter>
 }

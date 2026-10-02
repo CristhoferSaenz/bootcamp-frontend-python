@@ -43,20 +43,23 @@ function unwrapRecord(data) {
 }
 
 export function normalizeTask(task, index = 0) {
+  const completed = task.completed ?? task.completado ?? task.completada ?? task.done ?? false
   return {
     ...task,
     id: String(task.id ?? task._id ?? task.uuid ?? `apibox-${index}`),
     title: task.title ?? task.titulo ?? 'Tarea sin título',
     description: task.description ?? task.descripcion ?? '',
+    module: task.module ?? task.modulo ?? '',
     priority: task.priority ?? task.prioridad ?? 'Media',
     dueDate: task.dueDate ?? task.fechaLimite ?? task.fecha_limite ?? '',
-    completed: Boolean(task.completed ?? task.completada ?? task.done ?? false),
+    completed: completed === true || completed === 'true' || completed === 1,
     createdAt: task.createdAt ?? task.created_at ?? Date.now(),
   }
 }
 
 export async function fetchTasks() {
-  return unwrapList(await request(API_URL)).map(normalizeTask)
+  const raw = unwrapList(await request(API_URL))
+  return { tasks: raw.map(normalizeTask), raw }
 }
 
 export async function createTask(task) {

@@ -49,4 +49,6 @@ https://apibox.vercel.app/mzf92Np2itaXUYzhRTIrBBs9ueG0xXt5/tareas
 
 Al abrir la aplicación, solicita la lista con `GET`. Crear, editar y eliminar tareas usa `POST`, `PUT /tareas/:id` y `DELETE /tareas/:id`. La colección estaba vacía al integrar el proyecto, por lo que la pantalla inicia sin tareas; los registros nuevos se guardarán allí. `localStorage` conserva una copia local para mostrarla si APIBox no responde.
 
-Cada tarea se envía como JSON con `id`, `title`, `description`, `priority`, `dueDate`, `completed` y `createdAt`.
+Cada tarea nueva se envía como JSON con `title`, `description`, `priority`, `dueDate`, `completed` y `createdAt`. APIBox asigna el `id` automáticamente; la aplicación conserva el identificador que devuelve la API para editar y eliminar el registro.
+
+En el resumen también se muestra la respuesta JSON actual de APIBox, con el estado de conexión.
